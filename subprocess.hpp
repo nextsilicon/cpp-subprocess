@@ -1222,6 +1222,11 @@ public:
   friend struct detail::ArgumentDeducer;
   friend class detail::Child;
 
+  // Copying is not supported and causes all sorts of issues with input and
+  // output file descriptors
+  Popen(const Popen&) = delete;
+  Popen(Popen&&) = default;
+
   template <typename... Args>
   Popen(const std::string& cmd_args, Args&& ...args):
     args_(cmd_args)
