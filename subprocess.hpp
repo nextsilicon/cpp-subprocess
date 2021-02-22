@@ -1548,7 +1548,7 @@ inline void Popen::execute_process() noexcept(false)
 
   // If an error occurs, exit the application.
   if (!bSuccess)
-    throw OSError("CreateProcessW failed", 0);
+    throw OSError("CreateProcessW failed", GetLastError());
 
   CloseHandle(piProcInfo.hThread);
 
