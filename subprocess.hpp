@@ -1507,7 +1507,7 @@ inline void Popen::execute_process() noexcept(false)
 
   for (auto arg : this->vargs_) {
     argument = converter.from_bytes(arg);
-    util::quote_argument(argument, command_line, true);
+    command_line.append(argument);
     command_line += L" ";
   }
 
