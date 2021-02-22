@@ -1988,7 +1988,10 @@ namespace detail
     auto res = p.communicate();
     auto retcode = p.poll();
     if (retcode > 0) {
-      throw CalledProcessError("Command failed : Non zero retcode");
+      std::string message = "Command failed : Non zero retcode\n";
+      message.append(res.first.buf.data());
+      message.append(res.second.buf.data());
+      throw CalledProcessError(message);
     }
     return std::move(res.first);
   }
