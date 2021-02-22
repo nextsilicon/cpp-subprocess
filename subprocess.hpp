@@ -1335,6 +1335,7 @@ private:
   HANDLE process_handle_;
 #endif
 
+  std::future<void> process_cleanup;
   bool defer_process_start_ = false;
   bool close_fds_ = false;
   bool has_preexec_fn_ = false;
@@ -1558,7 +1559,7 @@ inline void Popen::execute_process() noexcept(false)
 
   this->process_handle_ = piProcInfo.hProcess;
 
-  std::async(std::launch::async, [this] {
+  this->process_cleanup = std::async(std::launch::async, [this] {
     WaitForSingleObject(this->process_handle_, INFINITE);
 
     CloseHandle(this->stream_.g_hChildStd_ERR_Wr);
