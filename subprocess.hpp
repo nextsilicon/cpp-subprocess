@@ -1319,6 +1319,8 @@ public:
   void close_output() { stream_.output_.reset(); }
   void close_error()  { stream_.error_.reset();  }
 
+  std::vector<std::string> args() const { return vargs_; }
+
 private:
   template <typename F, typename... Args>
   void init_args(F&& farg, Args&&... args);
